@@ -1,0 +1,92 @@
+Name,StudentID,Age,Nsiblings,Live,Nroommates,ClassStanding,Major,Minor,CreditHours,Working,NHoursWorking,Transfer,APCalculus,APCalExam,APStat,APStatExam,CalCollege,StatCollege,MathStrong,MathAnxiety,StatStrong,StatAnxiety,Ruser,RProficiency,NHoursStudy,NHoursSleep,GradYear,LetterGrade,CLLetterGrade,DayOff,Music,Movie,Travel
+,,18,1,On-campus,1,Freshman,Management Information Systems,NA,16,No,,No,Yes,Passed,No,,Yes,No,6,4,4,5,No,,2,7,2029,A,6,Basketball,Sofaygo,Shutter Island,Brazil
+,,19,2,On-campus,1,Freshman,Risk Management and Insurance,N/A,16,Yes,20,No,Yes,Passed,No,,No,No,4,4,4,4,No,,5,7,2029,A,4,Watching Game of Thrones,John Lee Hooker,The Departed,Boston
+,,19,2,On-campus,1,Sophomore,Marketing, - ,15,Yes,8,No,No,,No,,No,No,2,6,3,6,No,,10,7,2028,A-,5,cook a meal,omer adam,mamma mia,iceland
+,,19,1,On-campus,1,Freshman,Marketing,none,15,No,,No,Yes,Passed,Yes,Passed,No,No,4,5,5,4,No,,3,8,2029,A,6,hang out with friends ,Morgan Wallen,Parent Trap,Beach
+,,18,1,On-campus,1,Freshman,Finance,n/a,12,No,,No,No,,No,,No,No,5,4,5,4,No,,5,7,2029,A-,6,play golf,kings of leon,the dark knight,spain
+,,19,1,Off-campus,0,Sophomore,Management Information Systems,Consumer Economics,15,Maybe,,Yes,No,,Yes,Did not take exam,No,No,5,6,3,7,No,,10,8,2028,A,5,Cook,Kendrick Lamar,Harry Potter and the Prisoner of Azkaban,India
+,,18,1,On-campus,1,Freshman,Finance,,12,No,,No,Yes,Passed,No,,No,No,4,4,4,4,No,,5,8,2029,A,7,"Guitar, golf, gym",Kings of Leon,Interstellar,Switzerland
+,,19,1,Off-campus,1,Sophomore,Finance,,15,Yes,15,Yes,Yes,Passed,No,,Yes,No,6,2,4,4,No,,10,7,2028,A,5,hang out with friends and family,,Pride and Predjudice,
+,,18,2,On-campus,1,Freshman,Finance,Undecided,15,Yes,8,No,Yes,Passed,Yes,Passed,No,No,6,5,5,4,No,,3,8,2029,A,6,Watch football with friends,Frank Ocean,Dead Poets Society,Jamaca
+,,19,2,On-campus,1,Freshman,Management Information Systems,,15,Maybe,,No,Yes,Passed,No,,No,No,5,6,4,4,No,,6,7,2029,A,4,go eat with friends,malcolm todd,about time,korea
+,,18,2,On-campus,1,Freshman,Risk Management and Insurance,N/A,15,Yes,8,No,Yes,Passed,Yes,Did not take exam,No,No,6,2,4,2,No,,5,8,2029,A-,6,Pickleball,Pearl Jam,Se7en,Colorado
+,,19,1,Off-campus,3,Junior,Management Information Systems,MIS,15,Yes,7,Yes,No,,No,,Yes,No,2,6,2,6,No,,10,8,2027,A-,3,Gym or go thrifting,Frank Ocean,Sinners,Japan
+,,20,3,Off-campus,1,Junior,Risk Management and Insurance,N/A,12,Yes,20,Yes,No,,No,,No,No,6,2,4,4,No,,3,6,2027,A-,6,Thrift ,Sheena Ringo,Diehard,Dominican Republic 
+,,19,2,Off-campus,1,Sophomore,Management Information Systems,Management Information Systems,15,No,,Yes,No,,Yes,Passed,Yes,No,5,,4,4,No,,10,8,2028,A,4,Watch movies,Mozart,Amadeus,India
+,,20,2,Off-campus,3,Sophomore,Risk Management and Insurance,not sure,12,Yes,15,Yes,No,,No,,No,No,5,5,5,5,No,,15,8,2028,A,5,fish,treaty oak,blindside,Idaho
+,,22,1,Off-campus,0,Junior,Economics,none,12,Yes,20,Yes,No,,Yes,Passed,No,Yes,4,4,4,4,No,,5,6,2028,A-,5,Working out,Post Malone,Spider men,Japan
+,,19,2,Off-campus,1,Sophomore,Finance,N/A,12,Maybe,,Yes,No,,No,,No,Yes,4,3,4,4,Yes,1,3,8,2028,A-,3,Workout and exercise,Oasis,Shawshank Redemption,"Valencia, Spain"
+,,18,1,On-campus,1,Freshman,Finance,Statistics,15,No,,No,Yes,Passed,No,,No,No,6,3,4,6,No,,9,8,2029,A,6,watch tv and hangout with friends,Taylor Swift,The Housmaid,Greece
+,,20,2,Off-campus,3,Junior,Accounting,N/A,12,Yes,35,Yes,No,,No,,Yes,No,5,2,5,2,No,,15,8,2027,A,4,Play golf,Pink Floyd,Casino Royale,The beach
+,,20,1,Off-campus,3,Sophomore,Marketing,Economics,13,No,,Yes,No,,No,,No,No,4,5,2,5,No,,6,6,2029,C+,4,Read,The Cartoons,Maze Runner,"Quebec, Canada"
+,,22,2,Off-campus,0,Junior,Accounting,N/A,15,Yes,20,Yes,No,,No,,Yes,Yes,5,3,4,3,Yes,2,20,7,2028,A-,5,Watch sports,Allman Brothers Band,Ferris Bueller's Day Off,"Gallatin County, Montana"
+,,18,4,On-campus,1,Freshman,Real Estate,Na - cert in entr,15,Maybe,,No,No,,Yes,Passed,No,No,2,6,3,5,No,,3,8,2029,A-,4,Hang out with friends!,The Lumineers,Interstellar,The beach especially in Greece
+,,20,1,Off-campus,1,Junior,Finance,N/A,6,Yes,20,Yes,No,,No,,Yes,Yes,3,5,2,6,No,,15,5,2028,A,4,Sleep,BTS,Don't have one,India
+,,21,1,Off-campus,0,Junior,Management Information Systems,none,15,Maybe,,Yes,Yes,Did not pass,No,,No,Yes,5,5,4,5,No,,6,5,2027,A-,4,I love to go swimming or hang out with friends at my favorite restaurant. ,Drake ,Now You See Me ,"Banff, Canada (going there soon I know it will be my favorite)"
+,,18,2,On-campus,1,Sophomore,Finance,N/A,15,Maybe,,No,No,,No,,No,No,4,4,4,4,No,,10,9,2028,A,4,Golf,CCR,Catch me if you can ,"Georgia Mountains, Rabun County "
+,,19,1,Off-campus,1,Sophomore,Finance,Finance,15,No,,Yes,No,,No,,No,Yes,2,6,3,5,No,,4,7,2028,A-,2,Watch/Play Sports,Drake,21 Jump Street ,Punta Cana
+,,20,1,On-campus,3,Sophomore,Economics,"Law, Jurisprudence, and the State",15,Yes,12,Yes,No,,No,,No,No,3,6,3,5,No,,10,8,2028,A,6,Hike with friends,Florence + the Machine,Frankenstein,Ireland
+,,18,1,On-campus,1,Freshman,Finance,N/A,15,Maybe,,No,Yes,Passed,Yes,Passed,No,No,4,4,5,4,No,,15,7,2029,A,4,watch a movie,The Weeknd,,Any beach
+,,18,1,On-campus,1,Freshman,Finance,,18,Yes,12,No,Yes,Passed,Yes,Passed,No,No,6,2,5,2,No,,8,8,2029,A,6,Go to the gym,Kings of Leon,The Hunger Games,Ski resort
+,,18,2,On-campus,1,Freshman,Economics,,13,Maybe,,No,Yes,Did not take the exam,No,,Yes,No,5,3,4,5,No,,6,6,2029,A-,4,Watch football,Noah Kahan,TopGun,Hawaii
+,,19,1,Off-campus,3,Sophomore,Management Information Systems,Management Information Systems,14,Yes,25,Yes,No,,No,,Yes,No,6,2,5,2,No,,10,7,2028,A,6,"relax, maybe go do something exhilerating or outdoors activity ",Jimi Hendrix,The Hangover,anywhere I can ski
+,,18,0,On-campus,1,Freshman,Marketing,Environmental Law,15,Yes,16,No,Yes,Did not pass,Yes,Did not take exam,No,No,5,5,4,5,No,,20,7,2029,A,6,Golf,Drake,Stand By Me,Canary Islands
+,,19,5,Off-campus,0,Sophomore,Management,None,12,No,,Yes,Yes,Did not pass,No,,Yes,No,2,5,4,4,No,,6,7,2028,A,5,Watch Movies,Bloc Party,Earth to Echo,Panama City
+,,19,1,Off-campus,3,Sophomore,Finance,N/a,15,No,,No,Yes,Did not take the exam,No,,No,No,6,2,5,2,No,,20,8,2028,A,6,Watching TV (football/soccer in particular),Kaleo,The Dark Knight,Beach
+,,19,1,Off-campus,3,Junior,Risk Management and Insurance,n/a,15,Yes,10,Yes,Yes,Passed,Yes,Passed,Yes,Yes,3,6,4,3,No,,6,5,2027,A,5,go try a new restaurant,,,
+,,20,2,Off-campus,3,Sophomore,Marketing,Spanish,15,Yes,6,No,No,,Yes,Did not take exam,Yes,No,2,6,4,4,No,,5,7,2028,B+,5,Rest,Morgan Wallen,Hidden Figures,The beach
+,,19,2,Off-campus,1,Sophomore,Accounting,AI Learning,15,No,,Yes,Yes,Did not pass,Yes,Did not take exam,No,Yes,5,5,2,6,No,,5,8,2028,A,6,Play games and workout,Childish Gambino,Nightcrawler,Iceland
+,,18,2,On-campus,1,Freshman,Economics,"Philosophy, Ethics, and Law",16,Maybe,,No,No,,Yes,Passed,No,No,5,4,6,5,No,,20,7,2029,A,7,Watch TV,Morgan Wallen,The Wolf of Wall Street,Anywhere in Europe
+,,18,3,On-campus,1,Freshman,Economics,,15,Yes,20,No,Yes,Passed,Yes,Passed,Yes,No,7,1,5,2,No,,3,9,2029,A,5,Play volleyball or tennis,John Pardi,Grown Ups,Albania
+,,18,3,On-campus,1,Freshman,Finance,,16,No,,No,Yes,Passed,No,,No,No,6,3,4,3,No,,5,7,2029,A,6,hang out with my family ,thee sacred souls,mamma mia,the beach 
+,,19,2,Off-campus,3,Sophomore,Accounting,undecided,12,Yes,20,Yes,No,,No,,No,Yes,5,3,5,3,No,,4,7,2028,A,7,play pool,Led Zep,Cars,Florida
+,,21,2,Off-campus,2,Junior,Finance,Music ,15,Yes,25,Yes,No,,No,,No,No,3,5,4,6,No,,8.5,7,2028,A,4,Listen to film scores and read ,Hans Zimmer,The Dark Knight ,Texas
+,,18,2,On-campus,1,Freshman,Marketing,major in fashion merchandising,15,Maybe,,No,Yes,Passed,No,,No,No,5,3,2,4,No,,3,7,2029,A-,5,watch movies,Lumineers,Avengers Endgame,"Sorrento, Italy "
+,,19,1,Off-campus,3,Sophomore,Marketing,biomedical and pharmaceutical sciences,16,Maybe,,Yes,Yes,Did not pass,Yes,Did not take exam,Yes,Yes,6,3,4,6,No,,10,8,2028,A,5,"get coffee, go on a walk, hang with friends","Megan Mooney, Taylor swift, Morgan Wallen",mamma mia,cocoa beach Florida
+,,18,1,On-campus,1,Freshman,Finance,None,17,Maybe,,No,No,,Yes,Passed,No,No,5,4,5,3,No,,4,7,2029,A,5,Spend time with friends and play sports,Don Toliver,Kung Fu Panda,Hawaii
+,,19,2,Off-campus,0,Junior,Finance,Entrepreneurship ,12,Yes,35,Yes,No,,No,,Yes,Yes,4,4,4,4,No,,10,7,2027,A,5,"Travel, explore",Chris Stapleton,The Dark Knight,Jamaica
+,,19,1,Off-campus,2,Sophomore,Management,,15,Yes,20,Yes,No,,No,,No,No,4,5,4,4,No,,10,7,2028,A-,3,Play soccer or pickleball,Zac Bryan,Dune,Alaska
+,,23,1,On-campus,0,Sophomore,Management Information Systems,None,16,Maybe,,Yes,No,,No,,Yes,No,5,4,4,4,No,,5,8,2027,A-,4,Watching a movie,Drake,Dune,Seoul
+,,20,2,Off-campus,3,Sophomore,Management Information Systems,,15,Yes,9,No,Yes,Passed,No,,Yes,No,6,2,5,3,Yes,4,10,7,2028,A,5,Swim,The Weeknd,Avatar,Spain
+,,20,1,Off-campus,1,Sophomore,Finance,N/A,15,Yes,25,Yes,No,,Yes,Did not pass,Yes,No,2,5,2,5,No,,10,5,2028,A-,3,Play Basketball,Drake,F1,Mexico
+,,20,1,On-campus,1,Freshman,Finance,n/a,15,No,,No,Yes,Passed,Yes,Did not pass,No,No,5,2,4,2,No,,10,8,2029,A,5,Watch movies,Kanye,Heat,Vegas
+,,19,0,On-campus,1,Freshman,Finance,n/a,15,Maybe,,No,No,,No,,No,No,4,5,4,3,No,,12,7,2029,A,4,going to the gym with friends ,Kenny Chesney ,Harry Potter ,Punta Cana 
+,,22,2,Off-campus,5,Senior,Finance,NA,15,Yes,25,Yes,No,,No,,No,No,5,4,4,4,No,,6,7,2026,B,4,Golf,Coldplay,Good Will Hunting,Yosemite
+,,19,3,Off-campus,3,Sophomore,Finance,Mathematics,18,Yes,10,No,Yes,Passed,Yes,Did not take exam,Yes,No,7,2,3,2,No,,20,8,2028,A,5,"Exercise (run, cycle, walk)",The Bends,Pride and Prejudice,"Munich, Germany"
+,,19,1,On-campus,2,Sophomore,Marketing,Management ,16,No,,Yes,Yes,Passed,No,,Yes,No,3,4,3,5,No,,1,8,2028,A-,3,Sleep,I dont have one ,None,None
+,,18,2,On-campus,1,Freshman,Management,N/A,15,Maybe,,No,No,,Yes,Passed,No,No,4,3,3,3,No,,3,7,2029,A-,4,Watch football or hang out with buds.,Allman Brothers Band ,The Departed,Puerto Rico 
+,,18,1,On-campus,1,Freshman,Management Information Systems,,16,No,,No,Yes,Passed,Yes,Did not take exam,Yes,No,5,4,6,3,Yes,2,15,9,2029,A,4,Hangout with friends,Morgan Wallen,Aquaman,Thailand
+,,19,2,On-campus,1,Freshman,Accounting,,18,Maybe,,No,Yes,Did not pass,Yes,Passed,Yes,No,6,3,7,2,No,,18,7,2029,A,6,Go on a hike in a pretty place,Tyler Childers,Pitch Perfect,New York
+,,18,1,On-campus,1,Freshman,Finance,none,13,Maybe,,No,Yes,Passed,No,,No,No,6,3,3,4,No,,10,7,2029,A,4,"work out, watch football, hang out with buds",Led Zeppelin,Star Wars,Italy
+,,20,4,Off-campus,3,Sophomore,Accounting,,12,No,,Yes,No,,No,,Yes,No,5,3,2,4,No,,6,7,2029,A,6,golf driving range ,The Backseat Lovers,The first Hunger games,"Steamboat Springs, Colorado "
+,,20,2,Off-campus,2,Junior,Risk Management and Insurance,,12,Maybe,,Yes,No,,No,,No,Yes,6,2,6,1,No,,8,8,2027,A,5,hang with friends,youngboy,princess bride,beach
+,,22,4,Off-campus,1,Junior,Real Estate,N/A,12,Yes,24,Yes,No,,No,,Yes,Yes,5,4,5,3,No,,8,6,2028,A-,5,Watch football,Rod Wave ,Coach Carter,Florida
+,,18,1,On-campus,1,Freshman,Marketing,none,15,Maybe,,No,Yes,Passed,No,,No,No,4,4,2,2,No,,5,8,2029,A-,5,watch college football,dont really have one,good will hunting,Greece
+,,20,3,Off-campus,0,Sophomore,Finance,N/A,12,No,,Yes,No,,No,,No,Yes,6,6,6,5,No,,45,6,2028,A,7,On my day off I love to go hang out with my younger brother and boyfrined. ,Rosalia,Avatar,Europe
+,,19,2,Off-campus,3,Sophomore,Marketing,,15,Maybe,,No,No,,No,,No,No,2,6,4,4,No,,15,7,2028,A-,4,Hang out with friends,Chris Stapleton,Parent Trap,Caribbean 
+,,20,1,Off-campus,3,Sophomore,Finance,,12,Yes,12,Yes,No,,Yes,Passed,No,Yes,7,2,5,3,No,,10,5,2028,A-,6,Shopping,The Weeknd,The Hunger Games,Indonesia
+,,21,1,Off-campus,3,Junior,Marketing,NA,12,No,,Yes,No,,No,,Yes,No,5,4,3,5,No,,3,8,2028,A,5,"I like walking outside, playing with my dog, and going to the pool. ",Drake,The Notebook,"Seaside, Fl"
+,,19,2,On-campus,1,Freshman,Economics,International Affairs,16,Yes,5,No,No,,No,,No,No,4,2,5,2,No,,2,8,2029,A-,6,Go to the gym,Allman Brothers Band,Lord of the Rings Fellowship of the Ring,Scotland
+,,19,2,Off-campus,3,Sophomore,Risk Management and Insurance,Risk Management and Insurance,13,Yes,20,Yes,No,,Yes,Passed,No,No,6,1,6,1,No,,8,8,2028,A,6,Golf,Treaty Oak Revial,Fight Club,Beach anywhere
+,,20,2,Off-campus,2,Sophomore,Management Information Systems,,12,No,,Yes,No,,No,,No,No,4,3,2,4,No,,2,7,2028,A,5,Basketball,Kanye,Interstellar,Beach
+,,18,1,On-campus,1,Freshman,Accounting,Criminal Justice,17,No,,No,Yes,Passed,Yes,Passed,No,No,6,2,6,2,No,,10,8,2029,A,5,Go to sporting events or concerts with friends,Rhianna,Jason Bourne - The Bourne Legacy,New Orleans
+,,19,2,On-campus,1,Freshman,Accounting,Double Major: Real Estate,15,Maybe,,No,Yes,Passed,No,,No,No,5,3,3,3,No,,9,8,2029,A,6,Golf,Fleetwood Mac,,Florida
+,,19,2,Off-campus,1,Sophomore,Marketing,,15,Maybe,,Yes,No,,No,,No,Yes,6,4,6,2,No,,2,7,2028,A-,5,go to the gym,Backseat Lovers,Fantastic Mr. Fox,Italy
+,,18,1,On-campus,1,Freshman,Finance,N/A,17,No,,No,Yes,Passed,No,,No,No,6,2,4,3,No,,20,6.5,2029,A,5,Play Football or watch sports.,Bruno Mars,Interstellar,Hawaii
+,,19,0,Off-campus,3,Sophomore,Management Information Systems,none,15,Yes,10,No,Yes,Did not pass,No,,Yes,No,2,6,2,5,Yes,2,8,7,2028,B+,4,sleep,ariana grande,interstellar,china
+,,19,0,Off-campus,2,Sophomore,Management,Film,12,Maybe,,Yes,No,,No,,No,No,2,5,2,5,No,,4,7,2028,B+,4,Workout,,la la land,Europe
+,,19,4,On-campus,1,Sophomore,Risk Management and Insurance,co-major International business,15,No,,No,Yes,Passed,Yes,Did not pass,No,No,5,2,5,2,No,,8,6,2028,A,4,Go to the gym or play a sport,,,Dominican Republic
+,,19,2,On-campus,1,Freshman,Undecided,Im on the verge of switching out of business but Im keeping my options open... I'm working on switching to Neuroscience,16,Yes,20,No,Yes,Did not pass,No,,No,Yes,5,5,3,6,No,,8,6,2029,A-,5,Sleep.,A$AP Rocky right now but it changes,Marty Supreme as of right now,"Puerto Rico, my family is from there"
+,,22,1,Off-campus,0,Junior,Finance,N/A,15,Yes,20,Yes,No,,No,,Yes,No,4,2,4,4,No,,20,8,2027,A-,4,Play Tennis,Kanye West (The old version),The Minion Movie,South Africa
+,,19,2,On-campus,1,Freshman,Finance,,12,No,,No,Yes,Passed,No,,No,No,6,2,3,5,No,,5,8,2029,A,5,hang out with friends,Tyler Childers,How to Lose a Guy in 10 Days,St. Lucia
+,,20,0,Off-campus,3,Junior,Finance,n/a,15,No,,Yes,No,,No,,Yes,Yes,5,3,4,3,No,,12,8,2027,A-,5,Hang out with friends,Juice Wrld,Wolf of Wall Street,Japan
+,,18,1,On-campus,1,Freshman,Economics,None,16,Maybe,,No,Yes,Passed,Yes,Passed,No,No,6,3,4,5,No,,20,8,2029,B+,5,Watch TV,Beastie Boys,The Muppets (2011),The Philippines
+,,19,1,On-campus,1,Freshman,Finance,History,15,No,,No,Yes,Did not pass,No,,No,No,4,2,4,2,No,,4,9,2029,A,5,Golf,Led Zeppelin,Interstellar,Greece
+,,19,2,On-campus,1,Freshman,Management Information Systems,N/A,15,Yes,15,No,Yes,Did not pass,No,,No,No,2,7,4,5,No,,8,6,2029,A-,5,Read a book,Don Toliver,The Greatest Showman,Jamaica
+,,19,1,On-campus,1,Freshman,Marketing,None,15,Maybe,,No,Yes,Did not pass,Yes,Did not take exam,No,No,5,5,4,5,No,,10,8,2029,A,3,go visit with animals or drive to my hometown and see my mom and dad,Riley Green right now,I love watching Crazy Rich Asians especially on planes, A beach getaway
+,,18,3,On-campus,1,Sophomore,Economics,Economics BBA,15,Maybe,,Yes,Yes,Did not take the exam,No,,No,Yes,5,6,6,4,No,,8,7,2028,A,6,watch my favorite shows,Tame Impala,IT,South Africa
+,,20,2,Off-campus,4,Junior,Finance,Accounting,12,No,,Yes,No,,No,,No,No,4,5,3,5,No,,0,7,2027,B-,4,Hang out with friends/video games,Weeknd,Interstellar,Aruba
+,,20,1,Off-campus,0,Junior,Finance,finance,12,No,,Yes,No,,No,,Yes,No,6,1,4,1,No,,4,7,2027,A,7,spend time with friends,mc chao,marty supreme,nyc
+,,28,2,Off-campus,2,Junior,Management Information Systems,n/a,9,Yes,40,Yes,No,,No,,No,No,2,6,1,5,No,,7,6,2027,A,4,Watch football,Mana,Harry Potter,Mexico
+,,20,2,Off-campus,3,Sophomore,Real Estate,Classical Culture,15,Yes,10,No,No,,Yes,Passed,No,No,3,3,3,3,No,,15,7,2028,A,4,go shopping,Lorde,Good Will Hunting,Charleston
+,,18,2,On-campus,1,Freshman,Finance,Accounting,15,No,,No,Yes,Passed,Yes,Passed,No,No,6,2,6,2,Yes,4,7,8,2029,A,5,Go golfing or to the movies,Eddie Van Halen,Goodwill Hunting,"Banff, Canada"
