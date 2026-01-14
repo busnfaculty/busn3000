@@ -1,0 +1,39 @@
+BUSN3000StudentSurvey-Info.txt
+
+
+Variable Name	Description							Details
+		
+Name		Enter your First and Last Name	
+StudentID	Enter your UGA 81 Number.	
+Age		Enter your age in years.					FIB
+Nsiblings	How many siblings do you have?					FIB
+Live		Do you live on or off-campus?					Y/N
+Nroommates	How many roommates do you have?					FIB
+ClassStanding	What is your class standing?	
+Major		What is your intended major (at this time)?	
+Minor		What is your intended minor (at this time)?			FIB
+CreditHours	How many credit hours are you attempting this semester?		FIB
+Working		Are you working this semester?					Y/N/Maybe
+NHoursWorking	On average, how many hours per week do you work?		FIB
+Transfer	Are you a transfer student?					Y/N
+APCalculus	Did you take AP Calculus?					Y/N
+APCalExam	What was your AP Calculus exam result?				Pass, Did not pass, …
+APStat		Did you take AP Statistics?					Y/N
+APStatExam	What was your AP Statistics exam result?			Pass, Did not pass, …
+CalCollege	Have you taken calculus in college?				Y/N
+StatCollege	Have you taken statistics in college?				Y/N
+MathStrong	"Pure math is an area of strength for me."			1 = Strongly Disagree, 7 = Strongly Agree
+MathAnxiety	Rate your math anxiety.						1 = Not at All, 7 = Overwhelming
+StatStrong	"Statistics is an area of strength for me."			1 = Strongly Disagree, 7 = Strongly Agree
+StatAnxiety	Rate your statistics anxiety.					1 = Not at All, 7 = Overwhelming
+Ruser		Have you ever used R or RStudio software before?		Y/N
+Rproficiency	Rate your proficiency with R or RStudio.			1 = Beginner, 7 = Expert
+NHoursStudy	How many hours per week do you study outside of class?		FIB
+NHoursSleep	How many hours of sleep do you get on a typical weeknight?	FIB
+GradYear	What is your expected year of graduation?			FIB
+LetterGrade	What is your expected letter grade in this class?	
+CLLetterGrade	Rate your confidence level in achieving this letter grade.	1 = Not at all confident, 7 = Extraordinarily confident
+DayOff		Name your favorite thing to do on a day off.			FIB
+Music		Name your favorite musical artist.				FIB
+Movie		Name your favorite movie.					FIB
+Travel		Name your favorite travel destination.				FIB
