@@ -1,0 +1,19 @@
+#ATHRealEstateV1-Info.txt
+
+
+Variable Name		Description
+	
+ParcelNumber		A code number which serves as an abbreviation of or replacement for a parcel's legal description. The purpose of a parcel number is to facilitate the storage and use of land and building data in an information system. 
+LocationAdress		The physical address of the subject property. This address is usually created when a new building permit is issued.
+Acres			Size of the land lot in acres
+Neighborhood		Neighborhood identifier. This is 1 of 448 neighborhoods officially recognized by the Athens-Clarke County Tax Assessor's Office that exist in the county. However, this data set is a subset of all parcels in the county, so this is 1 of 3 neighborhoods represented in this data set.
+HomesteadExemp		The State of Georgia and Athens-Clarke County offer homestead exemptions to persons that own and occupy their home as a primary residence. (Remember, an exemption is a a dollar amount that can be deducted from an individual's total income or a total asset value, thereby reducing the taxable amount.)
+Style			Type of building. Throughout the entire county, examples include:  Single Family Residence, Commercial, Industrial, Manufactured Home, Multi-Family, etc.
+HeatedSqFt		Size of the climate controlled area (i.e., 'livable' area) in the building measured in square feet.
+YearBuilt		Actual year of construction (if known). If not know, an estimate of the actual age will be included.
+NumOfBedrooms		Number of bedrooms
+NumOfFullBath		Number of full bathrooms
+NumOfHalfBath		Number of half bathrroms
+ACC_NumAccs		Number of accessories. In Athens-Clarke County, Georgia, an "accessory structure" refers to a building or structure that is subordinate to and serves a purpose incidental to the primary use of the property. Examples include: Detached garages, storage sheds, greenhouses, gazebos, swimming pools, decks, etc.
+ACC_TotalValue		The total value of all accessories associated with a given property.
+Val_2024_CurrentValue	The estimated value of the property (structure and land) for 2024 property tax purposes. Estimates calculated by the Athens-Clarke County Tax Assessor's Office.
