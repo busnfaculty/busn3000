@@ -22,8 +22,8 @@
 #  DATA  (instructor: swap the population here)
 # ------------------------------------------------------------
 DATA_URL  <- "https://raw.githubusercontent.com/busnfaculty/busn3000/main/"
-DATA_FILE <- "sframe2.csv"                 # population file (swap to the 150-row set here)
-VALUE_COL <- "Val_2024_CurrentValue"       # the variable we survey (home value, USD)
+DATA_FILE <- "ATHRealEstateV1.csv"                 	# population file (swap to the 150-row set here)
+VALUE_COL <- "Val_2024_CurrentValue"       		# the variable we survey (home value, USD)
 YEAR_COL  <- "YearBuilt"                    # used by one scenario's frame
 
 # Load the population. Uses a local file if present, otherwise the URL.
