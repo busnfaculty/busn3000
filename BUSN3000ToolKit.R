@@ -269,23 +269,29 @@ freq.table <- function(x, main = NULL, varname = NULL) {
 ##   strata       optional third variable; one panel per level (3-way).
 ##                NULL (default) = a single 2-way table.
 ##   main         optional title
+##   freq         show the cell frequency (default TRUE). freq = FALSE prints
+##                only the percentages you turn on (margins keep the count).
 ##   row.pct / col.pct / total.pct   add each percentage to the cells (FALSE)
 ##   rowname / colname / stratname   heading overrides (default: derived names)
 ##
 ## Cell order: Frequency, then Total / Row / Col Pct for the toggles that are
-## on. Margins carry Frequency + Total Pct only. Active contents shown in a note.
+## on. Margins always carry the count + Total Pct. Active contents shown in a note.
 ## =====================================================================
 
-c.table <- function(row, col, strata = NULL, main = NULL,
+c.table <- function(row, col, strata = NULL, main = NULL, freq = TRUE,
                     row.pct = FALSE, col.pct = FALSE, total.pct = FALSE,
                     rowname = NULL, colname = NULL, stratname = NULL) {
+
+  if (!freq && !row.pct && !col.pct && !total.pct)
+    stop("With freq = FALSE, turn on at least one of total.pct, row.pct, col.pct.")
 
   rname <- if (!is.null(rowname))   rowname   else sub(".*\\$", "", deparse(substitute(row)))
   cname <- if (!is.null(colname))   colname   else sub(".*\\$", "", deparse(substitute(col)))
   sname <- if (!is.null(stratname)) stratname else sub(".*\\$", "", deparse(substitute(strata)))
 
-  fmt_cell <- function(freq, tp = NA, rp = NA, cp = NA) {
-    parts <- formatC(round(freq), format = "d", big.mark = ",")
+  fmt_cell <- function(count, tp = NA, rp = NA, cp = NA, margin = FALSE) {
+    parts <- character(0)
+    if (freq || margin) parts <- c(parts, formatC(round(count), format = "d", big.mark = ","))
     if (total.pct && is.finite(tp)) parts <- c(parts, sprintf("%.2f", tp))
     if (row.pct   && is.finite(rp)) parts <- c(parts, sprintf("%.2f", rp))
     if (col.pct   && is.finite(cp)) parts <- c(parts, sprintf("%.2f", cp))
@@ -303,12 +309,12 @@ c.table <- function(row, col, strata = NULL, main = NULL,
       for (j in seq_len(C))
         cells[j + 1] <- fmt_cell(tab[i, j], tp = pct(tab[i, j], grand),
                                  rp = pct(tab[i, j], rowtot[i]), cp = pct(tab[i, j], coltot[j]))
-      cells[C + 2] <- fmt_cell(rowtot[i], tp = pct(rowtot[i], grand))
+      cells[C + 2] <- fmt_cell(rowtot[i], tp = pct(rowtot[i], grand), margin = TRUE)
       rows[[i]] <- cells
     }
     tr <- character(C + 2); tr[1] <- "Total"
-    for (j in seq_len(C)) tr[j + 1] <- fmt_cell(coltot[j], tp = pct(coltot[j], grand))
-    tr[C + 2] <- fmt_cell(grand, tp = if (grand == 0) 0 else 100)
+    for (j in seq_len(C)) tr[j + 1] <- fmt_cell(coltot[j], tp = pct(coltot[j], grand), margin = TRUE)
+    tr[C + 2] <- fmt_cell(grand, tp = if (grand == 0) 0 else 100, margin = TRUE)
     rows[[R + 1]] <- tr
     list(cl = cl, rows = rows)
   }
@@ -331,10 +337,12 @@ c.table <- function(row, col, strata = NULL, main = NULL,
   align   <- c("left", rep("center", length(cl)), "center")
   cat_idx <- seq_along(cl) + 1
 
-  leg <- "Frequency"
-  if (total.pct) leg <- paste0(leg, " | Total Pct")
-  if (row.pct)   leg <- paste0(leg, " | Row Pct")
-  if (col.pct)   leg <- paste0(leg, " | Col Pct")
+  parts <- character(0)
+  if (freq)      parts <- c(parts, "Frequency")
+  if (total.pct) parts <- c(parts, "Total Pct")
+  if (row.pct)   parts <- c(parts, "Row Pct")
+  if (col.pct)   parts <- c(parts, "Col Pct")
+  leg <- paste(parts, collapse = " | ")
 
   structure(list(
     colkeys = colkeys, header = header, align = align,
