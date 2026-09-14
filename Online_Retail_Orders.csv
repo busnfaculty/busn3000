@@ -1,0 +1,251 @@
+Order_ID,Sales_Channel,Customer_Tier,Items_Purchased,Fulfillment_Time_Hours
+ORD-26-647027,Marketplace,Bronze,2,6.60
+ORD-26-771224,Mobile App,Gold,2,13.26
+ORD-26-791022,Mobile App,Bronze,1,21.28
+ORD-26-345625,Marketplace,Gold,4,2.81
+ORD-26-653519,Website,Silver,2,10.63
+ORD-26-382401,Mobile App,Bronze,4,3.73
+ORD-26-182762,Website,Bronze,3,13.87
+ORD-26-509924,Mobile App,Bronze,5,13.03
+ORD-26-399501,Mobile App,Gold,8,9.54
+ORD-26-182426,Website,Gold,1,4.79
+ORD-26-652693,Website,Bronze,4,21.74
+ORD-26-677147,Website,Bronze,2,17.08
+ORD-26-165010,Mobile App,Bronze,3,8.97
+ORD-26-172440,Marketplace,Gold,5,16.21
+ORD-26-681665,Mobile App,Platinum,3,4.42
+ORD-26-848688,Website,Bronze,6,13.11
+ORD-26-561686,Marketplace,Silver,1,7.12
+ORD-26-190818,Mobile App,Silver,3,7.44
+ORD-26-514650,Website,Gold,2,9.18
+ORD-26-520783,Website,Bronze,1,12.91
+ORD-26-391804,Mobile App,Platinum,1,14.61
+ORD-26-966568,Marketplace,Bronze,3,6.55
+ORD-26-890818,Website,Silver,6,5.39
+ORD-26-373552,Mobile App,Gold,1,9.63
+ORD-26-381933,Website,Silver,1,6.57
+ORD-26-167826,Website,Gold,5,22.93
+ORD-26-674187,Website,Gold,1,10.73
+ORD-26-290125,Mobile App,Platinum,3,4.45
+ORD-26-313449,Mobile App,Bronze,2,6.35
+ORD-26-969798,Website,Bronze,1,20.00
+ORD-26-726494,Website,Bronze,1,7.76
+ORD-26-731325,Mobile App,Gold,1,12.15
+ORD-26-592642,Marketplace,Bronze,2,5.97
+ORD-26-297866,Website,Silver,1,6.07
+ORD-26-390444,Mobile App,Gold,3,9.78
+ORD-26-671497,Marketplace,Gold,8,28.54
+ORD-26-674994,Website,Gold,3,23.69
+ORD-26-305001,Mobile App,Platinum,2,4.26
+ORD-26-111968,Marketplace,Silver,1,6.76
+ORD-26-175745,Mobile App,Bronze,3,6.09
+ORD-26-463899,Website,Silver,2,41.20
+ORD-26-976610,Website,Gold,2,5.86
+ORD-26-160396,Mobile App,Gold,1,7.94
+ORD-26-969908,Mobile App,Bronze,2,5.53
+ORD-26-972021,Website,Silver,1,5.51
+ORD-26-123479,Website,Silver,8,7.27
+ORD-26-429196,Website,Silver,5,15.51
+ORD-26-138029,Mobile App,Bronze,1,4.52
+ORD-26-114985,Marketplace,Gold,2,9.94
+ORD-26-795240,Mobile App,Bronze,5,47.85
+ORD-26-423589,Mobile App,Bronze,3,10.25
+ORD-26-766060,Website,Bronze,2,4.48
+ORD-26-833099,Mobile App,Gold,2,10.84
+ORD-26-942383,Mobile App,Silver,6,8.49
+ORD-26-925996,Mobile App,Bronze,1,9.38
+ORD-26-220901,Website,Bronze,2,11.10
+ORD-26-540703,Website,Bronze,2,2.90
+ORD-26-809148,Mobile App,Silver,1,4.17
+ORD-26-407254,Mobile App,Bronze,3,4.18
+ORD-26-687791,Mobile App,Bronze,2,8.07
+ORD-26-840366,Website,Gold,4,9.00
+ORD-26-914988,Mobile App,Bronze,2,8.55
+ORD-26-538777,Mobile App,Silver,8,7.50
+ORD-26-102222,Mobile App,Silver,1,20.68
+ORD-26-731966,Website,Gold,6,9.20
+ORD-26-556307,Website,Bronze,1,8.93
+ORD-26-152165,Website,Silver,4,3.35
+ORD-26-346080,Website,Gold,1,9.30
+ORD-26-673021,Website,Bronze,2,19.74
+ORD-26-631003,Website,Bronze,2,11.89
+ORD-26-860522,Mobile App,Bronze,4,11.42
+ORD-26-357975,Website,Bronze,2,7.07
+ORD-26-146998,Marketplace,Gold,3,12.50
+ORD-26-970892,Mobile App,Silver,1,2.84
+ORD-26-800348,Website,Gold,5,25.68
+ORD-26-152306,Website,Silver,4,11.51
+ORD-26-278219,Mobile App,Bronze,2,7.26
+ORD-26-842890,Website,Bronze,5,15.69
+ORD-26-756326,Website,Silver,6,20.67
+ORD-26-589677,Website,Bronze,1,17.51
+ORD-26-206136,Website,Bronze,1,12.80
+ORD-26-653260,Mobile App,Bronze,4,4.38
+ORD-26-393147,Website,Gold,3,7.30
+ORD-26-716026,Mobile App,Gold,3,12.19
+ORD-26-835939,Marketplace,Bronze,3,10.81
+ORD-26-733306,Mobile App,Bronze,3,21.44
+ORD-26-630534,Mobile App,Silver,2,4.93
+ORD-26-232276,Website,Gold,1,17.16
+ORD-26-854487,Mobile App,Bronze,8,9.56
+ORD-26-754322,Website,Gold,2,23.43
+ORD-26-738177,Mobile App,Silver,6,13.22
+ORD-26-741861,Website,Gold,1,10.56
+ORD-26-330071,Website,Bronze,1,19.08
+ORD-26-167982,Website,Bronze,5,8.95
+ORD-26-516483,Mobile App,Gold,2,14.99
+ORD-26-486318,Website,Bronze,2,22.55
+ORD-26-627538,Website,Bronze,3,13.38
+ORD-26-164864,Website,Bronze,5,4.29
+ORD-26-311309,Mobile App,Silver,7,7.34
+ORD-26-313433,Mobile App,Bronze,2,12.66
+ORD-26-898835,Website,Silver,4,13.63
+ORD-26-458205,Mobile App,Bronze,4,4.28
+ORD-26-745025,Mobile App,Gold,4,15.43
+ORD-26-235484,Website,Silver,4,14.62
+ORD-26-712722,Marketplace,Gold,2,22.41
+ORD-26-429577,Mobile App,Silver,3,8.32
+ORD-26-162907,Mobile App,Platinum,1,36.14
+ORD-26-193520,Marketplace,Silver,6,4.53
+ORD-26-340621,Mobile App,Bronze,6,15.45
+ORD-26-669981,Marketplace,Silver,1,19.90
+ORD-26-720858,Mobile App,Gold,1,8.60
+ORD-26-175038,Website,Bronze,2,5.96
+ORD-26-626348,Website,Silver,4,4.60
+ORD-26-209056,Website,Bronze,1,20.15
+ORD-26-681162,Website,Bronze,3,8.58
+ORD-26-635609,Website,Silver,2,8.86
+ORD-26-790532,Website,Bronze,2,9.81
+ORD-26-331846,Mobile App,Platinum,3,7.79
+ORD-26-934100,Website,Bronze,1,19.58
+ORD-26-304136,Mobile App,Silver,4,6.83
+ORD-26-921148,Marketplace,Silver,1,20.60
+ORD-26-434090,Marketplace,Bronze,1,7.01
+ORD-26-970235,Website,Platinum,1,8.51
+ORD-26-412812,Website,Silver,3,6.08
+ORD-26-782480,Website,Gold,4,8.99
+ORD-26-825516,Mobile App,Bronze,3,8.03
+ORD-26-228373,Website,Bronze,6,6.87
+ORD-26-677932,Mobile App,Bronze,2,5.16
+ORD-26-669729,Mobile App,Bronze,2,7.77
+ORD-26-127476,Website,Silver,4,9.27
+ORD-26-303122,Marketplace,Bronze,1,6.17
+ORD-26-461955,Website,Platinum,1,7.04
+ORD-26-424321,Website,Silver,5,6.95
+ORD-26-889420,Mobile App,Silver,4,18.18
+ORD-26-697161,Website,Platinum,6,10.98
+ORD-26-476851,Website,Silver,3,7.03
+ORD-26-356698,Mobile App,Silver,3,8.63
+ORD-26-414904,Website,Bronze,3,16.42
+ORD-26-507377,Marketplace,Silver,1,18.36
+ORD-26-639405,Website,Silver,2,14.59
+ORD-26-268821,Website,Silver,4,18.79
+ORD-26-104612,Website,Gold,1,22.38
+ORD-26-554654,Website,Gold,3,10.32
+ORD-26-289002,Website,Gold,2,9.52
+ORD-26-888478,Marketplace,Bronze,5,9.29
+ORD-26-207959,Mobile App,Bronze,2,17.40
+ORD-26-801087,Website,Bronze,1,5.81
+ORD-26-282992,Website,Gold,1,12.75
+ORD-26-884072,Marketplace,Silver,5,11.09
+ORD-26-583038,Mobile App,Silver,2,6.23
+ORD-26-380822,Website,Silver,4,25.58
+ORD-26-199349,Marketplace,Platinum,5,7.46
+ORD-26-683150,Website,Silver,7,6.24
+ORD-26-380316,Website,Gold,3,2.62
+ORD-26-105101,Mobile App,Silver,2,8.96
+ORD-26-972458,Website,Silver,1,14.22
+ORD-26-419177,Website,Bronze,2,13.82
+ORD-26-888173,Website,Silver,7,6.69
+ORD-26-159230,Website,Gold,1,19.92
+ORD-26-787616,Website,Bronze,2,2.44
+ORD-26-358044,Mobile App,Bronze,2,13.04
+ORD-26-725894,Website,Bronze,5,14.60
+ORD-26-855866,Marketplace,Bronze,2,15.48
+ORD-26-223728,Website,Bronze,3,17.17
+ORD-26-625277,Website,Silver,5,13.49
+ORD-26-744349,Website,Silver,3,3.25
+ORD-26-972503,Website,Silver,4,7.06
+ORD-26-629670,Website,Platinum,1,9.44
+ORD-26-535907,Website,Gold,4,8.74
+ORD-26-393916,Marketplace,Silver,4,7.32
+ORD-26-476646,Mobile App,Bronze,2,8.83
+ORD-26-738604,Marketplace,Silver,2,8.90
+ORD-26-230242,Marketplace,Silver,5,6.15
+ORD-26-130045,Website,Silver,4,7.58
+ORD-26-850406,Mobile App,Bronze,1,24.98
+ORD-26-290233,Mobile App,Gold,1,2.79
+ORD-26-909077,Marketplace,Bronze,2,20.85
+ORD-26-863765,Website,Silver,4,7.63
+ORD-26-411953,Website,Bronze,2,15.60
+ORD-26-210932,Website,Silver,5,7.84
+ORD-26-276311,Mobile App,Platinum,2,7.95
+ORD-26-320812,Marketplace,Gold,2,6.16
+ORD-26-223147,Mobile App,Gold,1,17.12
+ORD-26-501853,Mobile App,Bronze,4,6.75
+ORD-26-167875,Mobile App,Bronze,2,14.63
+ORD-26-668286,Mobile App,Silver,3,1.25
+ORD-26-812810,Website,Bronze,3,8.33
+ORD-26-309933,Website,Silver,2,11.80
+ORD-26-681194,Website,Silver,1,10.97
+ORD-26-598660,Mobile App,Bronze,4,12.65
+ORD-26-101682,Mobile App,Bronze,2,10.33
+ORD-26-887419,Website,Silver,7,11.38
+ORD-26-620569,Mobile App,Platinum,1,18.28
+ORD-26-526917,Mobile App,Bronze,1,8.98
+ORD-26-405721,Mobile App,Silver,4,8.09
+ORD-26-361948,Mobile App,Silver,2,7.51
+ORD-26-651434,Website,Bronze,4,24.15
+ORD-26-768961,Mobile App,Bronze,2,19.46
+ORD-26-626868,Marketplace,Bronze,3,1.98
+ORD-26-833533,Website,Gold,5,9.55
+ORD-26-457175,Mobile App,Platinum,1,20.49
+ORD-26-800168,Website,Bronze,2,4.46
+ORD-26-233902,Marketplace,Bronze,1,5.00
+ORD-26-464775,Marketplace,Silver,1,15.61
+ORD-26-829442,Mobile App,Gold,1,16.33
+ORD-26-577010,Marketplace,Bronze,2,15.26
+ORD-26-549345,Marketplace,Silver,2,22.11
+ORD-26-437204,Mobile App,Bronze,6,20.22
+ORD-26-956051,Website,Silver,2,12.67
+ORD-26-521555,Marketplace,Platinum,1,17.79
+ORD-26-976086,Mobile App,Silver,5,16.61
+ORD-26-461133,Mobile App,Silver,3,6.63
+ORD-26-347686,Website,Bronze,3,2.89
+ORD-26-349298,Website,Gold,3,2.48
+ORD-26-454442,Website,Silver,1,4.56
+ORD-26-722660,Mobile App,Bronze,1,9.21
+ORD-26-800750,Website,Gold,2,13.67
+ORD-26-630216,Mobile App,Silver,7,9.60
+ORD-26-468211,Mobile App,Silver,6,13.32
+ORD-26-686039,Marketplace,Bronze,4,24.36
+ORD-26-476362,Mobile App,Silver,4,15.49
+ORD-26-614781,Mobile App,Platinum,2,22.54
+ORD-26-183011,Website,Silver,2,9.22
+ORD-26-612405,Mobile App,Silver,3,7.88
+ORD-26-270225,Marketplace,Silver,8,28.57
+ORD-26-437577,Website,Platinum,3,24.71
+ORD-26-906694,Website,Silver,1,13.36
+ORD-26-110329,Mobile App,Gold,2,32.76
+ORD-26-108235,Marketplace,Platinum,3,16.97
+ORD-26-801505,Website,Silver,3,14.77
+ORD-26-902698,Mobile App,Platinum,2,7.25
+ORD-26-199375,Website,Gold,3,22.52
+ORD-26-569425,Mobile App,Bronze,8,8.64
+ORD-26-547918,Marketplace,Silver,2,4.40
+ORD-26-855481,Marketplace,Bronze,7,12.12
+ORD-26-361160,Marketplace,Silver,1,15.96
+ORD-26-934560,Mobile App,Platinum,5,17.76
+ORD-26-713205,Website,Bronze,3,2.78
+ORD-26-943426,Website,Bronze,1,6.26
+ORD-26-958644,Mobile App,Silver,2,17.19
+ORD-26-522912,Marketplace,Silver,1,20.89
+ORD-26-480701,Website,Silver,5,36.10
+ORD-26-648663,Mobile App,Bronze,2,18.50
+ORD-26-968150,Marketplace,Bronze,8,7.80
+ORD-26-995977,Mobile App,Silver,5,22.35
+ORD-26-360688,Mobile App,Bronze,1,6.56
+ORD-26-322492,Mobile App,Bronze,2,14.14
+ORD-26-821626,Website,Silver,4,19.73
+ORD-26-385119,Website,Silver,2,11.11
+ORD-26-305731,Website,Silver,2,8.00
