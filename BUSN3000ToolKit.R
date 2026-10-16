@@ -1,6 +1,6 @@
 ## #####################################################################
 ## BUSN 3000H  —  Table Toolkit   (pure base R, ZERO packages)
-## VERSION V3.3
+## VERSION V3.4
 ##
 ## Tables are drawn with base graphics (text/segments) straight onto R's
 ## png() device -- the SAME machinery bar charts use. Nothing to install:
@@ -32,6 +32,22 @@
 ##     multi.table(), con.table(), q.table() and bar.chart() gain note = NULL:
 ##     your own note under the table or chart. png.print() saves charts at
 ##     8 x 5 inches by default, whatever the size of the Plots pane.
+## v3.4: categories are listed in one order everywhere (see "Category order,
+##     numbering and wrapping" below): numbers in number order, a factor in its
+##     level order, text answers from most to least frequent, "Other" after
+##     them. freq.table(), multi.table(), con.table() and bar.chart() gain
+##     order = and last =. A select-all question, or one with an answer longer
+##     than 30 characters, is numbered: "1. answer" in the table and bars
+##     1, 2, 3, ... in the chart, so the table is the chart's key. Table labels
+##     longer than 30 characters wrap. freq.table() and multi.table() gain
+##     base = "all": percents of every respondent, with a "No Answer" row.
+##     bar.chart() sets its own margins (mar = NULL): a tight top and a bottom
+##     that fits the labels. Table images have a thinner white border.
+##     A bar.chart() note lines up with the y-axis and runs to the end of the
+##     x-axis; png.print() draws
+##     a bar.chart() again at the PNG's size so the note fits the saved chart.
+##     Fixes: a bar.chart() note that doesn't fit no longer breaks the charts
+##     after it; a table saved at a new resolution no longer squashes its rows.
 ##
 ## Export flow:
 ##   t1 <- freq.table(...) ;  png.print(t1)   # table -> t1.png
@@ -60,7 +76,7 @@ BUSN.cex.axis <- 0.75        # axis / header / body / legend font size (charts A
 .btable_style <- list(
   title_cex = BUSN.cex.main, head_cex = BUSN.cex.axis,
   body_cex  = BUSN.cex.axis, foot_cex = BUSN.cex.axis,
-  cell_pad_x = 0.12, row_pad_y = 0.07, line_mult = 1.35, margin = 0.16,
+  cell_pad_x = 0.12, row_pad_y = 0.07, line_mult = 1.35, margin = 0.05,
   rule_thick = 2.0, rule_mid = 1.1, hair_col = "gray80", hair_lwd = 0.8
 )
 
@@ -195,6 +211,7 @@ BUSN.cex.axis <- 0.75        # axis / header / body / legend font size (charts A
   st <- .btable_style
   op <- par(mar = c(0, 0, 0, 0), xpd = NA); on.exit(par(op))
   plot.new()
+  .fresh_metrics()                          # measure fonts on THIS device
   din <- par("din")
   plot.window(xlim = c(0, din[1]), ylim = c(0, din[2]), xaxs = "i", yaxs = "i")
 
@@ -292,6 +309,7 @@ BUSN.cex.axis <- 0.75        # axis / header / body / legend font size (charts A
   tf <- tempfile(fileext = ".png")
   png(tf, width = 30, height = 30, units = "in", res = res)
   plot.new()
+  .fresh_metrics()
   L <- .btable_layout(spec)
   dev.off(); unlink(tf)
   c(w = L$total_w + 2 * .btable_style$margin,
@@ -334,50 +352,67 @@ print.btable <- function(x, ...) { .draw_btable(x); invisible(x) }
   })
 }
 
+## every option anyone checked (for checking order = and last =)
+.multi_answers <- function(x) unique(unlist(.split_multi(x)))
+
 ## option counts (respondents who checked each) and n (respondents who answered).
 ## With other = k, options checked by k or fewer respondents become "Other",
 ## and "Other" counts each respondent once (not once per small option).
-.multi_counts <- function(x, other = NULL) {
+## The counts come back in display order (see "Category order" below).
+.multi_counts <- function(x, other = NULL, order = NULL, last = NULL) {
   parts <- .split_multi(x)
   picks <- unlist(parts)
   if (is.null(picks)) picks <- character(0)
+  kind <- if (is.numeric(x)) "num" else "text"; lv <- NULL
   if (is.factor(x)) {                                     # keep a factor's level order
-    lv <- unique(trimws(levels(x))); lv <- lv[lv != ""]
-    if (all(picks %in% lv)) picks <- factor(picks, levels = lv)
+    flv <- unique(trimws(levels(x))); flv <- flv[flv != ""]
+    if (all(picks %in% flv)) { picks <- factor(picks, levels = flv); kind <- "factor"; lv <- flv }
   }
   counts <- table(picks)
   small  <- character(0)
   if (!is.null(other)) {
     .check_other(other)
     small <- .small_cats(counts, other)
-    lv    <- names(counts)
-    if (length(small) || "Other" %in% lv) {
+    nm    <- names(counts)
+    if (length(small) || "Other" %in% nm) {
       parts  <- lapply(parts, function(p) { p[p %in% small] <- "Other"; unique(p) })
-      keep   <- setdiff(lv, c(small, "Other"))
+      keep   <- setdiff(nm, c(small, "Other"))
       picks  <- unlist(parts)
       if (is.null(picks)) picks <- character(0)
       counts <- table(factor(picks, levels = c(keep, "Other")))
     }
   }
+  counts <- counts[.order_levels(counts, kind, lv, order, last)]
   list(counts = counts, n = sum(lengths(parts) > 0L), parts = parts, small = small)
 }
 
 ## the Option | Frequency | Percent of Respondents table (freq.table and multi.table)
-.multi_btable <- function(x, main, varname, other = NULL, note = NULL) {
+.multi_btable <- function(x, main, varname, other = NULL, note = NULL,
+                          order = NULL, last = NULL, base = "answered") {
   .check_note(note)
-  mc <- .multi_counts(x, other)
-  n  <- mc$n
-  if (n == 0L) stop("Every value of x is blank or NA: no one answered this question.",
-                    call. = FALSE)
+  base <- .check_base(base)
+  .check_order(order, last, .multi_answers(x))
+  mc    <- .multi_counts(x, other, .as_names(order), .as_names(last))
+  n_ans <- mc$n
+  if (n_ans == 0L) stop("Every value of x is blank or NA: no one answered this question.",
+                        call. = FALSE)
+  n  <- if (base == "all") length(x) else n_ans         # base = "all": every respondent
+  na <- n - n_ans                                       # respondents with no answer
 
   Frequency <- as.integer(mc$counts)
   Percent   <- 100 * Frequency / n
-  lev       <- names(mc$counts)
+  cats      <- names(mc$counts)
+  labs      <- .cat_labels(cats, .numbered(cats, .is_multi(x)))
 
-  body <- lapply(seq_along(lev), function(i) list(type = "data", cells = c(
-    lev[i],
+  body <- lapply(seq_along(cats), function(i) list(type = "data", cells = c(
+    labs[i],
     formatC(Frequency[i], format = "d", big.mark = ","),
     formatC(Percent[i],   format = "f", digits = 2))))
+  if (base == "all" && na > 0L)                         # not numbered: it has no bar
+    body[[length(body) + 1L]] <- list(type = "data", cells = c(
+      "No Answer",
+      formatC(na, format = "d", big.mark = ","),
+      formatC(100 * na / n, format = "f", digits = 2)))
 
   structure(list(
     colkeys = c("level", "Frequency", "PctResp"),
@@ -387,6 +422,9 @@ print.btable <- function(x, ...) { .draw_btable(x); invisible(x) }
     title = main,
     footnote = .join_notes(
       paste0("n = ", formatC(n, format = "d", big.mark = ","), " respondents",
+             if (base == "all" && na > 0L)
+               paste0(", including ", formatC(na, format = "d", big.mark = ","),
+                      " with no answer") else "",
              if (.is_multi(x)) "; more than one option could be selected" else ""),
       .other_note(mc$small, other)),
     note = note, first_col_divider = TRUE),
@@ -408,7 +446,7 @@ print.btable <- function(x, ...) { .draw_btable(x); invisible(x) }
 ##
 ## other = NULL (default): nothing changes.
 ## other = 5: categories with 5 or fewer respondents go into one "Other"
-##   category, placed last. A category already named "Other" absorbs them.
+##   category, after the others. A category already named "Other" absorbs them.
 ##   Nothing is lumped unless at least two categories qualify (one small
 ##   category would only be renamed). A footnote says what "Other" holds.
 ## =====================================================================
@@ -471,12 +509,130 @@ print.btable <- function(x, ...) { .draw_btable(x); invisible(x) }
   note
 }
 
-## a chart note split into lines that fit the chart's width ("\n" = new line).
-## Uses the current figure width, so it is recomputed at every size.
-.chart_note <- function(note, cex) {
-  width <- max(10, floor((par("fin")[1] - 0.3) / (0.5 * par("cin")[2] * cex)))
+## a chart note split into lines that fit width_in inches ("\n" = new line),
+## measured with the device's own font. bar.chart() passes the width of the
+## plot area, so the note runs from the y-axis to the end of the x-axis;
+## png.print() draws the chart again at the PNG's size.
+.chart_note <- function(note, cex, width_in) {
   paras <- strsplit(paste(note, collapse = "\n"), "\n", fixed = TRUE)[[1]]
-  unlist(lapply(paras, function(p) if (nzchar(trimws(p))) strwrap(p, width) else ""))
+  unlist(lapply(paras, function(p) {
+    if (!nzchar(trimws(p))) return("")
+    w <- tryCatch(.wrap_head(p, width_in, cex), error = function(e) NULL)
+    if (is.null(w))                # no font measurements: estimate from the letter size
+      w <- paste(strwrap(p, max(10, floor(width_in / (0.55 * par("cin")[2] * cex)))),
+                 collapse = "\n")
+    strsplit(w, "\n", fixed = TRUE)[[1]]
+  }))
+}
+
+## R keeps the size of the letter "M" it measured on the last device. A new
+## PNG at another resolution can reuse that stale size, which squashes table
+## rows. Measuring once at an unusual text size forces a fresh measurement.
+.fresh_metrics <- function() invisible(strheight("M", units = "inches", cex = 1.2345))
+
+
+## =====================================================================
+## Category order, numbering and wrapping (internal) — v3.4, shared by
+## freq.table(), multi.table(), con.table() and bar.chart(), so a table and
+## its chart always list the categories in the same order.
+##
+## Order:
+##   numbers (e.g. a 1-5 rating)  number order
+##   a factor                     its level order (set with factor(levels = ...))
+##   text answers                 most to least frequent; ties alphabetical
+##   "Other" comes after the regular categories.
+##   order = c("A", "B")  puts those answers first, in that order.
+##   last  = c("Y", "Z")  puts those answers at the end, in that order.
+##   Each must match an answer exactly; anything else stops with a message
+##   listing the answers. (An answer combined into "Other" is skipped.)
+## Numbering: a select-all question, or one with any answer longer than 30
+##   characters, is numbered: the table shows "1. answer" and the bar chart
+##   labels its bars 1, 2, 3, ... so the table is the chart's key.
+## Wrapping: in a table, an answer longer than 30 characters wraps onto more
+##   lines (no line over 30 characters, not counting the number in front).
+## =====================================================================
+
+.max_label <- 30                       # longer answers are numbered and wrapped
+
+.cat_kind <- function(x) if (is.factor(x)) "factor" else if (is.numeric(x)) "num" else "text"
+
+## the answers in a single-choice variable (for checking order = and last =)
+.answers <- function(x) {
+  if (is.factor(x)) return(levels(x))
+  v <- x[!is.na(x)]
+  if (is.numeric(v)) as.character(sort(unique(v))) else unique(as.character(v))
+}
+
+.as_names <- function(v) if (is.null(v)) NULL else as.character(v)
+
+## order = and last = must be answers in the data, and not both at once
+.check_order <- function(order, last, answers) {
+  args <- list(order = order, last = last)
+  for (a in names(args)) {
+    v <- args[[a]]
+    if (is.null(v)) next
+    if (!(is.character(v) || is.numeric(v)) || !length(v) || anyNA(v))
+      stop(sprintf('%s must be answers in quotes, e.g. %s = c("Yes", "No")', a, a),
+           call. = FALSE)
+    bad <- setdiff(as.character(v), answers)
+    if (length(bad))
+      stop(sprintf('%s = "%s": that is not one of the answers. The answers are: %s',
+                   a, bad[1], paste0('"', answers, '"', collapse = ", ")), call. = FALSE)
+  }
+  both <- intersect(as.character(order), as.character(last))
+  if (length(both))
+    stop(sprintf('"%s" is in both order and last; list it in only one.', both[1]),
+         call. = FALSE)
+  invisible(NULL)
+}
+
+.check_base <- function(base) {
+  if (!(is.character(base) && length(base) == 1L && base %in% c("answered", "all")))
+    stop('base must be "answered" (the default) or "all".', call. = FALSE)
+  base
+}
+
+## the display order of a set of category counts (names = categories).
+## kind comes from the variable BEFORE other = ("num", "factor" or "text").
+.order_levels <- function(counts, kind, lv = NULL, order = NULL, last = NULL) {
+  nm <- names(counts)
+  if (!length(nm)) return(character(0))
+  reg <- nm[nm != "Other"]
+  base <- if (kind == "num") {
+    reg[base::order(suppressWarnings(as.numeric(reg)))]
+  } else if (kind == "factor") {
+    if ("Other" %in% nm && "Other" %in% lv) c(lv[lv %in% nm], setdiff(reg, lv))
+    else c(lv[lv %in% reg], setdiff(reg, lv))
+  } else {
+    reg[base::order(-as.vector(counts[reg]), reg, method = "radix")]
+  }
+  if ("Other" %in% nm && !("Other" %in% base)) base <- c(base, "Other")
+  order <- order[order %in% nm]
+  last  <- last[last %in% nm]
+  c(order, setdiff(base, c(order, last)), last)
+}
+
+## numbered: a select-all question, or any answer longer than 30 characters
+.numbered <- function(cats, multi) multi || any(nchar(cats) > .max_label)
+
+## wrap a label at spaces so no line is longer than width characters
+.wrap_chars <- function(s, width = .max_label) {
+  if (is.na(s) || nchar(s) <= width) return(s)
+  words <- strsplit(s, " ", fixed = TRUE)[[1]]
+  words <- words[nzchar(words)]
+  lines <- character(0); cur <- ""
+  for (w in words) {
+    cand <- if (nzchar(cur)) paste(cur, w) else w
+    if (nzchar(cur) && nchar(cand) > width) { lines <- c(lines, cur); cur <- w } else cur <- cand
+  }
+  paste(c(lines, cur), collapse = "\n")
+}
+
+## the first-column labels of a table: each answer wrapped if longer than 30
+## characters, then numbered ("1. answer") when the question is numbered
+.cat_labels <- function(cats, num) {
+  labs <- vapply(cats, .wrap_chars, character(1), USE.NAMES = FALSE)
+  if (num) paste0(seq_along(cats), ". ", labs) else labs
 }
 
 
@@ -488,44 +644,77 @@ print.btable <- function(x, ...) { .draw_btable(x); invisible(x) }
 ##   varname   heading for the first column; defaults to the variable name
 ##             from x (d1$REGION -> "REGION"). Override when x was reassigned.
 ##   other     NULL (default) = off. other = 5 puts categories with 5 or fewer
-##             respondents into one "Other" row, placed last.
+##             respondents into one "Other" row, after the others.
 ##   note      NULL (default) = none. Text printed as the last line under the
 ##             table, e.g. note = "Note: ...". Long notes wrap; "\n" starts a new line.
+##   order     NULL (default) = none. Answers to list first, in this order,
+##             e.g. order = c("Monday", "Tuesday").
+##   last      NULL (default) = none. Answers to list at the end, in this order,
+##             e.g. last = "Prefer not to answer".
+##   base      "answered" (default): percents of the respondents who answered.
+##             "all": percents of every respondent (every row of the data), with
+##             a "No Answer" row for the rest.
 ##
 ## Columns: Frequency, Percent, Cumulative Frequency, Cumulative Percent
-## Blank answers are skipped (not counted). A select-all column gets the
-## multi.table() layout instead (Frequency and Percent of Respondents; no
-## cumulative columns, since percents can sum to more than 100).
+## Row order: numbers in number order, a factor in its level order, text from
+## most to least frequent (see "Category order" above). Blank answers are
+## skipped (not counted). A select-all column gets the multi.table() layout
+## instead (Frequency and Percent of Respondents; no cumulative columns, since
+## percents can sum to more than 100).
 ## =====================================================================
 
-freq.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NULL) {
+freq.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NULL,
+                       order = NULL, last = NULL, base = "answered") {
 
   if (is.null(varname)) varname <- sub(".*\\$", "", deparse(substitute(x)))
   .check_note(note)
+  base <- .check_base(base)
   x <- .blank_na(x)
-  if (.is_multi(x)) return(.multi_btable(x, main, varname, other, note))
+  if (.is_multi(x)) return(.multi_btable(x, main, varname, other, note, order, last, base))
 
-  ao        <- .apply_other(x, other)
-  counts    <- table(ao$x)
+  kind <- .cat_kind(x)
+  lv   <- if (is.factor(x)) levels(x) else NULL
+  .check_order(order, last, .answers(x))
+  ao     <- .apply_other(x, other)
+  counts <- table(ao$x)
+  counts <- counts[.order_levels(counts, kind, lv, .as_names(order), .as_names(last))]
+  cats   <- names(counts)
+
   Frequency <- as.integer(counts)
-  Percent   <- 100 * Frequency / sum(Frequency)
-  cf <- cumsum(Frequency); cp <- cumsum(Percent)
-  lev <- names(counts)
+  n_ans <- sum(Frequency)
+  n     <- if (base == "all") length(x) else n_ans      # base = "all": every respondent
+  na    <- n - n_ans                                    # respondents with no answer
+  Percent <- 100 * Frequency / n
+  cf <- cumsum(Frequency); cp <- 100 * cf / n
+  labs <- .cat_labels(cats, .numbered(cats, FALSE))
 
-  body <- lapply(seq_along(lev), function(i) list(type = "data", cells = c(
-    lev[i],
+  body <- lapply(seq_along(cats), function(i) list(type = "data", cells = c(
+    labs[i],
     formatC(Frequency[i], format = "d", big.mark = ","),
     formatC(Percent[i],   format = "f", digits = 2),
     formatC(cf[i],        format = "d", big.mark = ","),
     formatC(cp[i],        format = "f", digits = 2))))
+  if (base == "all" && na > 0L)                         # not numbered: it has no bar
+    body[[length(body) + 1L]] <- list(type = "data", cells = c(
+      "No Answer",
+      formatC(na, format = "d", big.mark = ","),
+      formatC(100 * na / n, format = "f", digits = 2),
+      formatC(n, format = "d", big.mark = ","),
+      formatC(100, format = "f", digits = 2)))
 
   structure(list(
     colkeys = c("level", "Frequency", "Percent", "CumFreq", "CumPct"),
     header  = c(varname, "Frequency", "Percent", "Cumulative Frequency", "Cumulative Percent"),
     align   = c("left", "right", "right", "right", "right"),
     spanners = list(), body = body,
-    title = main, footnote = .other_note(ao$small, other), note = note,
-    first_col_divider = TRUE),
+    title = main,
+    footnote = .join_notes(
+      if (base == "all")
+        paste0("n = ", formatC(n, format = "d", big.mark = ","), " respondents",
+               if (na > 0L) paste0(", including ", formatC(na, format = "d", big.mark = ","),
+                                   " with no answer") else ""),
+      .other_note(ao$small, other)),
+    note = note, first_col_divider = TRUE),
     class = "btable")
 }
 
@@ -540,10 +729,17 @@ freq.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NULL
 ##   varname   heading for the first column; defaults to the variable name
 ##             from x (d1$aid -> "aid"). Override when x was reassigned.
 ##   other     NULL (default) = off. other = 5 puts options checked by 5 or
-##             fewer respondents into one "Other" row, placed last; "Other"
+##             fewer respondents into one "Other" row, after the others; "Other"
 ##             counts each respondent once, however many small options they checked.
 ##   note      NULL (default) = none. Text printed as the last line under the
 ##             table, e.g. note = "Note: ...". Long notes wrap; "\n" starts a new line.
+##   order     NULL (default) = none. Options to list first, in this order,
+##             e.g. order = c("Monday", "Tuesday", "Wednesday").
+##   last      NULL (default) = none. Options to list at the end, in this order,
+##             e.g. last = "I have not used any of these".
+##   base      "answered" (default): percents of the respondents who answered.
+##             "all": percents of every respondent (every row of the data), with
+##             a "No Answer" row for the rest (e.g. a question only some were asked).
 ##
 ## Blank and NA cells are respondents who skipped the question; n = the
 ## number of respondents who answered. Each cell is split at ";" and each
@@ -552,13 +748,16 @@ freq.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NULL
 ##
 ## Columns: Frequency (respondents who checked the option) and Percent of
 ## Respondents (Frequency / n). Percents can sum to more than 100.
-## Row order follows factor levels, as in freq.table().
+## Rows run from the most to the least checked option (see "Category order"
+## above). On a select-all question the options are numbered ("1. option"),
+## matching the numbered bars of bar.chart().
 ## =====================================================================
 
-multi.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NULL) {
+multi.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NULL,
+                        order = NULL, last = NULL, base = "answered") {
 
   if (is.null(varname)) varname <- sub(".*\\$", "", deparse(substitute(x)))
-  .multi_btable(x, main, varname, other, note)
+  .multi_btable(x, main, varname, other, note, order, last, base)
 }
 
 ## =====================================================================
@@ -575,10 +774,16 @@ multi.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NUL
 ##   other        NULL (default) = off. other = 5 puts row categories whose row
 ##                total is 5 or less into one "Other" row, and column categories
 ##                whose column total is 5 or less into one "Other" column (each
-##                placed last). The strata variable is never combined.
+##                after the others). The strata variable is never combined.
 ##   note         NULL (default) = none. Text printed as the last line under the
 ##                table, e.g. note = "Note: ...". Long notes wrap; "\n" starts a new line.
+##   order / last NULL (default) = none. Answers to list first / at the end, in
+##                that order. Each applies to whichever variable (row or col)
+##                has that answer.
 ##
+## Row and column order: numbers in number order, a factor in its level order,
+## text from most to least frequent by the row or column total (see "Category
+## order" above). Row labels longer than 30 characters are numbered and wrap.
 ## Cell order: Frequency, then Total / Row / Col Pct for the toggles that are
 ## on. Margins always carry the count + Total Pct. Active contents shown in a note.
 ## Every strata panel shows every row and column category (0 where a
@@ -590,7 +795,7 @@ multi.table <- function(x, main = NULL, varname = NULL, other = NULL, note = NUL
 con.table <- function(row, col, strata = NULL, main = NULL, freq = TRUE,
                     row.pct = FALSE, col.pct = FALSE, total.pct = FALSE,
                     rowname = NULL, colname = NULL, stratname = NULL, other = NULL,
-                    note = NULL) {
+                    note = NULL, order = NULL, last = NULL) {
 
   if (!freq && !row.pct && !col.pct && !total.pct)
     stop("With freq = FALSE, turn on at least one of total.pct, row.pct, col.pct.")
@@ -608,6 +813,12 @@ con.table <- function(row, col, strata = NULL, main = NULL, freq = TRUE,
   ## blanks are skipped answers
   row <- .blank_na(row); col <- .blank_na(col); strata <- .blank_na(strata)
 
+  ## the order rule uses each variable as it came in (before other =)
+  rkind <- .cat_kind(row); rlv0 <- if (is.factor(row)) levels(row) else NULL
+  ckind <- .cat_kind(col); clv0 <- if (is.factor(col)) levels(col) else NULL
+  .check_order(order, last, unique(c(.answers(row), .answers(col))))
+  order <- .as_names(order); last <- .as_names(last)
+
   ## other = k: combine small row categories and small column categories,
   ## judged by their totals in the table (respondents with row, col and strata)
   small <- character(0)
@@ -620,9 +831,15 @@ con.table <- function(row, col, strata = NULL, main = NULL, freq = TRUE,
     small <- c(ar$small, ac$small)
   }
 
-  ## every category of row and col, so each strata panel has the same shape
-  rlev <- levels(as.factor(row))
-  clev <- levels(as.factor(col))
+  ## every category of row and col, so each strata panel has the same shape,
+  ## in display order (by the row / column totals of the whole table)
+  ok <- !is.na(row) & !is.na(col)
+  if (!is.null(strata)) ok <- ok & !is.na(strata)
+  rlev <- .order_levels(table(factor(row[ok], levels = levels(as.factor(row)))),
+                        rkind, rlv0, order, last)
+  clev <- .order_levels(table(factor(col[ok], levels = levels(as.factor(col)))),
+                        ckind, clv0, order, last)
+  rlab <- .cat_labels(rlev, .numbered(rlev, FALSE))     # numbered + wrapped if long
 
   fmt_cell <- function(count, tp = NA, rp = NA, cp = NA, margin = FALSE) {
     parts <- character(0)
@@ -641,7 +858,7 @@ con.table <- function(row, col, strata = NULL, main = NULL, freq = TRUE,
     pct <- function(n, d) if (d == 0) 0 else n / d * 100    # 0.00 for empty levels
     rows <- list()
     for (i in seq_len(R)) {
-      cells <- character(C + 2); cells[1] <- rl[i]
+      cells <- character(C + 2); cells[1] <- rlab[i]
       for (j in seq_len(C))
         cells[j + 1] <- fmt_cell(tab[i, j], tp = pct(tab[i, j], grand),
                                  rp = pct(tab[i, j], rowtot[i]), cp = pct(tab[i, j], coltot[j]))
@@ -802,25 +1019,37 @@ q.table <- function(data, vars = NULL, labels = NULL, type = "econ",
 ##   cex.main  title font size (default BUSN.cex.main)
 ##   cex.axis  axis / label / category / legend font size (default BUSN.cex.axis)
 ##   legend.title   heading for the legend; defaults to the group variable name
-##   mar       plot margins in lines: c(bottom, left, top, right);
-##             default c(5.5, 4.5, 4, 2) + 0.1
+##   mar       plot margins in lines: c(bottom, left, top, right).
+##             NULL (default) = automatic: a tight top and a bottom that fits
+##             the category labels, the x-axis label and any note.
 ##   other     NULL (default) = off. other = 5 combines categories with 5 or
-##             fewer respondents into one "Other" bar, placed last -- the same
-##             categories the matching table combines (freq.table / multi.table,
-##             or con.table for a grouped chart, where the legend groups are
-##             combined the same way).
-##   note      NULL (default) = none. Text printed at the bottom left, below
-##             the x-axis label, e.g. note = "Note: ...". The bottom margin
-##             grows to fit; long notes wrap; "\n" starts a new line.
+##             fewer respondents into one "Other" bar, after the others -- the
+##             same categories the matching table combines (freq.table /
+##             multi.table, or con.table for a grouped chart, where the legend
+##             groups are combined the same way).
+##   note      NULL (default) = none. Text printed under the chart, below the
+##             x-axis label, starting at the y-axis, e.g. note = "Note: ...".
+##             The bottom margin grows to fit; long notes wrap at the end of
+##             the x-axis; "\n" starts a new line.
+##   order     NULL (default) = none. Answers to put first, in this order.
+##   last      NULL (default) = none. Answers to put at the end, in this order.
+##             (Grouped chart: each applies to x or group, whichever has the answer.)
 ##
+## The bars follow the same order as the matching table (see "Category order"
+## above): numbers in number order, a factor in its level order, text from
+## most to least frequent. On a select-all question, or one with an answer
+## longer than 30 characters, the bars are numbered 1, 2, 3, ... and the
+## matching table (freq.table / multi.table / con.table) is the key.
 ## Colors and font sizes come from the CONFIG block at the top of this file.
 ## Leaves headroom above the tallest bar and wraps long labels so none are
 ## dropped. Blank answers are skipped. A select-all x gets one bar per option
 ## (respondents who checked it; grouped: each respondent counted once per
 ## option in their group). A select-all group stops with a message.
-## The category labels, x-axis label and legend are re-placed whenever the
-## chart is redrawn at another size (png.print, resizing the Plots pane), so
-## they never overlap. Pairs with png.print():
+## The category labels, x-axis label, note and legend are re-placed whenever
+## the chart is redrawn at another size (png.print, resizing the Plots pane),
+## so they never overlap. If the Plots pane is too small for the chart (and its
+## note), it stops with a message instead of drawing a broken chart.
+## Pairs with png.print():
 ##   bar.chart(d1$q05_class_standing, main = "Class Standing")            # one-way
 ##   bar.chart(d1$q05_class_standing, d1$q09_working, main = "...")       # side-by-side
 ##   png.print("standing_bar.png")
@@ -837,26 +1066,45 @@ q.table <- function(data, vars = NULL, labels = NULL, type = "econ",
   colorRampPalette(c(BUSN.fill, .tint(BUSN.fill, 0.55)))(n)
 }
 
+## the last chart bar.chart() drew: its arguments, and the plot as drawn.
+## png.print() draws it again at the PNG's own size while it is still the
+## current plot; any other plot is copied as before.
+.busn_bar <- new.env()
+
+## the current plot's drawing instructions (NULL if there is no plot to record)
+.plot_record <- function()
+  tryCatch(suppressWarnings(recordPlot()[[1]]), error = function(e) NULL)
+
 bar.chart <- function(x, group = NULL, main = NULL, xlab = NULL,
                       ylab = "Frequency", col = NULL, border = BUSN.border,
                       wrap = 12, cex.main = BUSN.cex.main, cex.axis = BUSN.cex.axis,
-                      legend.title = NULL, mar = c(5.5, 4.5, 4, 2) + 0.1,
-                      other = NULL, note = NULL) {
+                      legend.title = NULL, mar = NULL,
+                      other = NULL, note = NULL, order = NULL, last = NULL) {
 
   if (is.null(xlab)) xlab <- sub(".*\\$", "", deparse(substitute(x)))
   .check_note(note)
   grouped <- !is.null(group)
   if (grouped && is.null(legend.title))
     legend.title <- sub(".*\\$", "", deparse(substitute(group)))
+  ## everything needed to draw this chart again (png.print() redraws it at the PNG's size)
+  redo <- list(x = x, group = group, main = main, xlab = xlab, ylab = ylab, col = col,
+               border = border, wrap = wrap, cex.main = cex.main, cex.axis = cex.axis,
+               legend.title = legend.title, mar = mar, other = other, note = note,
+               order = order, last = last)
   x       <- .blank_na(x)                     # blanks are skipped answers
   group   <- .blank_na(group)
   multi   <- .is_multi(x)
+  xkind   <- .cat_kind(x); xlv <- if (is.factor(x)) levels(x) else NULL
+  xans    <- if (multi) .multi_answers(x) else .answers(x)
 
   if (grouped) {
     .stop_if_multi(group, legend.title,
                    "use it as x (the first argument), not as group.")
+    gkind <- .cat_kind(group); glv <- if (is.factor(group)) levels(group) else NULL
+    .check_order(order, last, unique(c(xans, .answers(group))))
+    order <- .as_names(order); last <- .as_names(last)
     if (multi) {                              # one (group, option) pair per box checked
-      mc    <- .multi_counts(x, other)        # options combined as in multi.table()
+      mc    <- .multi_counts(x, other, order, last)   # options as in multi.table()
       parts <- mc$parts
       if (!is.null(other)) {                  # groups combined by respondents who answered x
         has   <- lengths(parts) > 0L
@@ -867,6 +1115,7 @@ bar.chart <- function(x, group = NULL, main = NULL, xlab = NULL,
                        levels = levels(as.factor(group)))     # every group stays in the legend
       opts   <- unlist(parts); if (is.null(opts)) opts <- character(0)
       counts <- table(g, factor(opts, levels = names(mc$counts)))
+      gtot   <- table(factor(group, levels = levels(g))[lengths(parts) > 0L])  # respondents per group
     } else {
       if (!is.null(other)) {                  # same combining as con.table(x, group, other =)
         ok    <- !is.na(x) & !is.na(group)
@@ -875,43 +1124,71 @@ bar.chart <- function(x, group = NULL, main = NULL, xlab = NULL,
                               table(factor(group[ok], levels = levels(as.factor(group)))))$x
       }
       counts <- table(group, x)               # rows = legend groups, cols = x categories
+      counts <- counts[, .order_levels(colSums(counts), xkind, xlv, order, last), drop = FALSE]
+      gtot   <- rowSums(counts)                 # respondents per group (as in con.table)
     }
+    counts <- counts[.order_levels(gtot, gkind, glv, order, last), , drop = FALSE]
     xcats  <- colnames(counts)
     glev   <- rownames(counts)
     if (is.null(col)) col <- .bar_palette(length(glev))
     ymax   <- max(counts, na.rm = TRUE)
     ytop   <- ymax * 1.30                      # extra room for the legend
   } else {
-    counts <- if (multi) .multi_counts(x, other)$counts else table(.apply_other(x, other)$x)
+    .check_order(order, last, xans)
+    order <- .as_names(order); last <- .as_names(last)
+    if (multi) {
+      counts <- .multi_counts(x, other, order, last)$counts
+    } else {
+      counts <- table(.apply_other(x, other)$x)
+      counts <- counts[.order_levels(counts, xkind, xlv, order, last)]
+    }
     xcats  <- names(counts)
     if (is.null(col)) col <- BUSN.fill
     ymax   <- max(counts, na.rm = TRUE)
     ytop   <- ymax * 1.15
   }
 
-  labs <- vapply(xcats, function(s) paste(strwrap(s, width = wrap), collapse = "\n"),
-                 character(1))
+  ## numbered bars (select-all, or an answer longer than 30 characters); the
+  ## matching table shows the same numbers as "1. answer"
+  labs <- if (.numbered(xcats, multi)) as.character(seq_along(xcats)) else
+    vapply(xcats, function(s) paste(strwrap(s, width = wrap), collapse = "\n"), character(1))
 
-  op <- par("mar"); on.exit(par(mar = op))
+  ## margins, in lines (the same at every size): a tight top, and a bottom with
+  ## room for the deepest label, the x-axis label and the note
+  maxln <- max(1L, vapply(labs, function(s) length(strsplit(s, "\n", fixed = TRUE)[[1]]),
+                          integer(1)))
+  m <- if (is.null(mar)) {
+    c(cex.axis * (maxln + 0.3) + (if (nzchar(xlab)) cex.axis * 1.1 else 0) + 0.3,
+      4.5,
+      if (is.null(main) || !nzchar(paste(main, collapse = ""))) 1 else 2.2,
+      1) + 0.1
+  } else mar
+  note_lines <- NULL
+  if (!is.null(note)) {                       # from the y-axis to the end of the x-axis
+    note_lines <- .chart_note(note, cex.axis, par("din")[1] - (m[2] + m[4]) * par("csi"))
+    m[1] <- m[1] + cex.axis * (length(note_lines) + 0.4)
+  }
+  if ((m[1] + m[3]) * par("csi") > par("din")[2] - 0.6)
+    stop("The Plots pane is too small for this chart",
+         if (!is.null(note)) " and its note" else "",
+         ". Make the Plots pane bigger",
+         if (!is.null(note)) ", or shorten the note" else "", ".", call. = FALSE)
+
+  op <- par(mar = m); on.exit(par(op))        # set plainly, before the chart starts
   tk <- environment(.chart_note)              # where the toolkit's helpers live
-  ## bottom margin: mar, plus room for the note (recomputed at every redraw size)
-  recordGraphics({
-    m <- mar
-    if (!is.null(note)) m[1] <- m[1] + length(.chart_note(note, cex.axis)) * cex.axis + 0.8
-    par(mar = m)
-  }, list(mar = mar, note = note, cex.axis = cex.axis), tk)
 
   mp <- barplot(counts, beside = grouped, axisnames = FALSE,
                 main = main, xlab = "", ylab = ylab,
                 col = col, border = border, ylim = c(0, ytop),
                 cex.axis = cex.axis, cex.lab = cex.axis, cex.main = cex.main)
 
-  ## wrapped category labels + xlab, placed in the SAME coordinate system so the
-  ## gap stays tight whether a label wraps or not, at any plot height.
+  ## category labels, xlab and note, placed in the SAME coordinate system so the
+  ## gaps stay tight whether a label wraps or not, at any plot height.
   ## recordGraphics() re-runs this whenever the chart is redrawn at another size
   ## (png.print, resizing the Plots pane), so the spacing is always recomputed.
   at <- if (grouped) colMeans(mp) else as.vector(mp)
   recordGraphics({
+    .fresh_metrics()                                       # measure on THIS device
     lh    <- strheight("Ag", cex = cex.axis)               # one text line, in y units
     lab_h <- max(strheight(labs, cex = cex.axis))          # deepest wrapped label, as drawn
     y_lab <- par("usr")[3] - 0.4 * lh                      # small gap below the axis
@@ -920,14 +1197,14 @@ bar.chart <- function(x, group = NULL, main = NULL, xlab = NULL,
     y_x   <- y_lab - lab_h - 0.5 * lh
     text(mean(par("usr")[1:2]), y_x,
          xlab, xpd = NA, adj = c(0.5, 1), cex = cex.axis)
-    ## note: bottom left, a gap below the xlab, wrapped to the chart width
-    if (!is.null(note)) {
-      y_n <- y_x - strheight(xlab, cex = cex.axis) - 0.8 * lh
-      text(grconvertX(0.15, from = "inches", to = "user"), y_n,
-           paste(.chart_note(note, cex.axis), collapse = "\n"),
+    ## note: a gap below the xlab, lined up with the y-axis, in the lines wrapped above
+    if (!is.null(note_lines)) {
+      y_n <- y_x - (if (nzchar(xlab)) strheight(xlab, cex = cex.axis) else 0) - 0.8 * lh
+      text(par("usr")[1], y_n,
+           paste(note_lines, collapse = "\n"),
            xpd = NA, adj = c(0, 1), cex = cex.axis, col = "gray30")
     }
-  }, list(at = at, labs = labs, xlab = xlab, cex.axis = cex.axis, note = note), tk)
+  }, list(at = at, labs = labs, xlab = xlab, cex.axis = cex.axis, note_lines = note_lines), tk)
 
   if (grouped)
     recordGraphics(
@@ -937,6 +1214,10 @@ bar.chart <- function(x, group = NULL, main = NULL, xlab = NULL,
            cex.axis = cex.axis),
       getNamespace("graphics"))
 
+  ## put the margins back now (not on exit), then remember this chart exactly as
+  ## drawn, so png.print() can tell whether it is still the current plot
+  par(op); on.exit()
+  .busn_bar$last <- list(args = redo, dl = .plot_record())
   invisible(mp)
 }
 
@@ -958,6 +1239,10 @@ bar.chart <- function(x, group = NULL, main = NULL, xlab = NULL,
 ##   width/height  plots only: size in INCHES; default 8 x 5, whatever the size
 ##                 of the Plots pane. width = NULL, height = NULL uses the
 ##                 current Plots pane size instead.
+##
+## A chart from bar.chart() is drawn again on the PNG (while it is still the
+## current plot), so its margins and note are worked out for the PNG's size.
+## Any other plot is copied from the Plots pane.
 ## =====================================================================
 
 png.print <- function(x, file = NULL, res = 200, width = 8, height = 5) {
@@ -990,8 +1275,19 @@ png.print <- function(x, file = NULL, res = 200, width = 8, height = 5) {
       d <- dev.size("in")          # match the current (possibly resized) plot window
       width <- d[1]; height <- d[2]
     }
-    dev.copy(png, file, width = width, height = height, units = "in", res = res)
-    dev.off()
+    last <- .busn_bar$last
+    if (!is.null(last) && !is.null(last$dl) && all(par("mfrow") == 1L) &&
+        identical(.plot_record(), last$dl)) {
+      ## the current plot is the last bar.chart(): draw it again on the PNG, so
+      ## its margins and note are worked out for the PNG's size
+      cur <- dev.cur()
+      png(file, width = width, height = height, units = "in", res = res, bg = "white")
+      tryCatch(do.call(bar.chart, last$args),
+               finally = { dev.off(); if (cur > 1) dev.set(cur); .busn_bar$last <- last })
+    } else {                       # any other plot: copy it to the PNG
+      dev.copy(png, file, width = width, height = height, units = "in", res = res)
+      dev.off()
+    }
   }
   invisible(if (is_table) x else NULL)
 }
